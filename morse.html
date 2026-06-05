@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Asesmen Risiko Jatuh (Morse) — SIMRS</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div class="top-bar">
+  <a href="index.html">🏥 SIMRS</a>
+  <span class="sep">›</span>
+  <span class="current">Asesmen Risiko Jatuh (Morse Fall Scale)</span>
+</div>
+<div class="form-header">
+  <div><h1>Asesmen Risiko Jatuh</h1><p>Morse Fall Scale — 6 Parameter Standar</p></div>
+  <div class="hicon">⚠️</div>
+</div>
+<div class="form-body">
+
+  <div class="sec">
+    <div class="stitle">👤 Identitas Pasien</div>
+    <div class="g2">
+      <div class="f"><label>No. Rekam Medis</label><input type="text" placeholder="00123456"/></div>
+      <div class="f"><label>Nama Pasien</label><input type="text" placeholder="Nama lengkap"/></div>
+      <div class="f"><label>Tanggal Asesmen</label><input type="datetime-local"/></div>
+      <div class="f"><label>Ruangan / Unit</label><input type="text" placeholder="IGD, Bedah, Interna..."/></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="stitle">📋 Morse Fall Scale</div>
+
+    <div class="score-row">
+      <span class="score-lbl">1. Riwayat jatuh</span>
+      <select id="m1" onchange="hitungMorse()">
+        <option value="0">Tidak ada — 0</option>
+        <option value="25">Ada (dalam 3 bulan terakhir) — 25</option>
+      </select>
+      <span class="score-val" id="mv1">0</span>
+    </div>
+    <div class="score-row">
+      <span class="score-lbl">2. Diagnosis sekunder</span>
+      <select id="m2" onchange="hitungMorse()">
+        <option value="0">Tidak ada — 0</option>
+        <option value="15">Ada (≥ 2 diagnosis) — 15</option>
+      </select>
+      <span class="score-val" id="mv2">0</span>
+    </div>
+    <div class="score-row">
+      <span class="score-lbl">3. Alat bantu jalan</span>
+      <select id="m3" onchange="hitungMorse()">
+        <option value="0">Tidak ada / bedrest / bantuan perawat — 0</option>
+        <option value="15">Kruk / tongkat / walker — 15</option>
+        <option value="30">Berpegangan pada furnitur — 30</option>
+      </select>
+      <span class="score-val" id="mv3">0</span>
+    </div>
+    <div class="score-row">
+      <span class="score-lbl">4. IV / Heparin lock</span>
+      <select id="m4" onchange="hitungMorse()">
+        <option value="0">Tidak — 0</option>
+        <option value="20">Ya — 20</option>
+      </select>
+      <span class="score-val" id="mv4">0</span>
+    </div>
+    <div class="score-row">
+      <span class="score-lbl">5. Gaya berjalan</span>
+      <select id="m5" onchange="hitungMorse()">
+        <option value="0">Normal / bedrest / kursi roda — 0</option>
+        <option value="10">Lemah / tertatih — 10</option>
+        <option value="20">Terganggu / tidak stabil — 20</option>
+      </select>
+      <span class="score-val" id="mv5">0</span>
+    </div>
+    <div class="score-row">
+      <span class="score-lbl">6. Status mental</span>
+      <select id="m6" onchange="hitungMorse()">
+        <option value="0">Orientasi terhadap kemampuan diri sendiri — 0</option>
+        <option value="15">Lupa keterbatasan / overestimate kemampuan — 15</option>
+      </select>
+      <span class="score-val" id="mv6">0</span>
+    </div>
+
+    <div id="morseResult" class="result-box result-low" style="margin-top:16px;">
+      <div class="r-label">Total Skor Morse Fall Scale</div>
+      <div class="r-score" id="morseScore">0</div>
+      <div class="r-cat" id="morseCat">Risiko Rendah — tidak perlu intervensi khusus</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px;">
+      <div style="background:#EAF3DE;border-radius:10px;padding:10px 14px;text-align:center;">
+        <div style="font-size:11px;color:#3B6D11;font-weight:600;">🟢 Risiko Rendah</div>
+        <div style="font-size:13px;color:#27500A;margin-top:4px;">Skor 0 – 24</div>
+        <div style="font-size:11px;color:#3B6D11;margin-top:2px;">Intervensi standar</div>
+      </div>
+      <div style="background:#FAEEDA;border-radius:10px;padding:10px 14px;text-align:center;">
+        <div style="font-size:11px;color:#854F0B;font-weight:600;">🟡 Risiko Sedang</div>
+        <div style="font-size:13px;color:#633806;margin-top:4px;">Skor 25 – 44</div>
+        <div style="font-size:11px;color:#854F0B;margin-top:2px;">Pencegahan standar</div>
+      </div>
+      <div style="background:#FCEBEB;border-radius:10px;padding:10px 14px;text-align:center;">
+        <div style="font-size:11px;color:#A32D2D;font-weight:600;">🔴 Risiko Tinggi</div>
+        <div style="font-size:13px;color:#791F1F;margin-top:4px;">Skor ≥ 45</div>
+        <div style="font-size:11px;color:#A32D2D;margin-top:2px;">Pencegahan intensif</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="stitle">🛡️ Intervensi Pencegahan Jatuh</div>
+    <div class="g2">
+      <div class="f"><label>Intervensi yang Direncanakan</label>
+        <div class="rg">
+          <label><input type="checkbox"/><span>Pasang gelang risiko jatuh (kuning)</span></label>
+          <label><input type="checkbox"/><span>Tanda risiko jatuh di tempat tidur</span></label>
+          <label><input type="checkbox"/><span>Posisikan TT rendah & kunci roda</span></label>
+          <label><input type="checkbox"/><span>Pasang pengaman tempat tidur</span></label>
+          <label><input type="checkbox"/><span>Edukasi pasien & keluarga</span></label>
+          <label><input type="checkbox"/><span>Minta bantuan sebelum berdiri</span></label>
+          <label><input type="checkbox"/><span>Pastikan pencahayaan cukup</span></label>
+          <label><input type="checkbox"/><span>Alat bantu dalam jangkauan</span></label>
+          <label><input type="checkbox"/><span>Evaluasi ulang tiap shift</span></label>
+          <label><input type="checkbox"/><span>Konsul fisioterapi</span></label>
+        </div>
+      </div>
+      <div class="f"><label>Catatan Intervensi</label><textarea placeholder="Tindakan khusus, kondisi spesifik pasien terkait risiko jatuh..."></textarea></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="stitle">✍️ Tanda Tangan</div>
+    <div class="g2">
+      <div class="f"><label>Perawat yang Melakukan Asesmen</label><input type="text" placeholder="Nama & paraf"/></div>
+      <div class="f"><label>Tanggal & Jam</label><input type="datetime-local"/></div>
+    </div>
+  </div>
+
+  <div class="btn-bar">
+    <button class="btn-secondary" onclick="window.print()">🖨️ Cetak</button>
+    <button class="btn-primary">💾 Simpan ke SIMRS</button>
+  </div>
+</div>
+<script>
+function hitungMorse(){
+  const ids=['m1','m2','m3','m4','m5','m6'];
+  let total=0;
+  ids.forEach((id,i)=>{
+    const v=parseInt(document.getElementById(id).value)||0;
+    document.getElementById('mv'+(i+1)).textContent=v;
+    total+=v;
+  });
+  document.getElementById('morseScore').textContent=total;
+  const el=document.getElementById('morseResult');
+  el.className='result-box';
+  if(total<25){el.classList.add('result-low');document.getElementById('morseCat').textContent='Risiko Rendah — tidak perlu intervensi khusus';}
+  else if(total<45){el.classList.add('result-med');document.getElementById('morseCat').textContent='Risiko Sedang — implementasi pencegahan standar';}
+  else{el.classList.add('result-high');document.getElementById('morseCat').textContent='Risiko Tinggi — implementasi pencegahan intensif';}
+}
+</script>
+</body>
+</html>

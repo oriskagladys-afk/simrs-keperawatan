@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Skrining Nutrisi — SIMRS</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div class="top-bar">
+  <a href="index.html">🏥 SIMRS</a>
+  <span class="sep">›</span>
+  <span class="current">Skrining Nutrisi (MST)</span>
+</div>
+<div class="form-header">
+  <div><h1>Skrining Nutrisi</h1><p>Malnutrition Screening Tool (MST) & Pengkajian Gizi</p></div>
+  <div class="hicon">🥗</div>
+</div>
+<div class="form-body">
+
+  <div class="sec">
+    <div class="stitle">👤 Identitas Pasien</div>
+    <div class="g2">
+      <div class="f"><label>No. Rekam Medis</label><input type="text" placeholder="00123456"/></div>
+      <div class="f"><label>Nama Pasien</label><input type="text" placeholder="Nama lengkap"/></div>
+      <div class="f"><label>Tanggal Asesmen</label><input type="datetime-local"/></div>
+      <div class="f"><label>Ruangan / Unit</label><input type="text" placeholder="IGD, Bedah, Interna..."/></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="stitle">🔍 Malnutrition Screening Tool (MST)</div>
+
+    <div class="nut-q">
+      <div class="q-text">1. Apakah pasien mengalami penurunan berat badan yang tidak disengaja baru-baru ini?</div>
+      <div class="rg">
+        <label><input type="radio" name="n1" value="no" onchange="hitungMST()"/><span>Tidak — 0</span></label>
+        <label><input type="radio" name="n1" value="unsure" onchange="hitungMST()"/><span>Tidak yakin — 2</span></label>
+        <label><input type="radio" name="n1" value="yes" onchange="hitungMST()"/><span>Ya → lanjut ke 1a</span></label>
+      </div>
+    </div>
+
+    <div class="nut-q" id="q1a" style="opacity:.45;pointer-events:none;">
+      <div class="q-text">1a. Berapa banyak berat badan yang hilang?</div>
+      <div class="rg">
+        <label><input type="radio" name="n1a" value="1" onchange="hitungMST()"/><span>1–5 kg — 1</span></label>
+        <label><input type="radio" name="n1a" value="2" onchange="hitungMST()"/><span>6–10 kg — 2</span></label>
+        <label><input type="radio" name="n1a" value="3" onchange="hitungMST()"/><span>11–15 kg — 3</span></label>
+        <label><input type="radio" name="n1a" value="4" onchange="hitungMST()"/><span>> 15 kg — 4</span></label>
+        <label><input type="radio" name="n1a" value="2" onchange="hitungMST()"/><span>Tidak tahu — 2</span></label>
+      </div>
+    </div>
+
+    <div class="nut-q">
+      <div class="q-text">2. Apakah pasien mengalami penurunan asupan makan akibat nafsu makan berkurang atau kesulitan menelan?</div>
+      <div class="rg">
+        <label><input type="radio" name="n2" value="0" onchange="hitungMST()"/><span>Tidak — 0</span></label>
+        <label><input type="radio" name="n2" value="1" onchange="hitungMST()"/><span>Ya — 1</span></label>
+      </div>
+    </div>
+
+    <div id="mstResult" class="result-box result-low">
+      <div class="r-label">Total Skor MST</div>
+      <div class="r-score" id="mstScore">0</div>
+      <div class="r-cat" id="mstCat">Risiko Rendah — tidak perlu intervensi gizi khusus saat ini</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="stitle">📏 Data Antropometri & Biokimia</div>
+    <div class="g3">
+      <div class="f"><label>Berat Badan Saat Ini (kg)</label><input type="number" placeholder="—" id="bbNow" oninput="hitungBMI()"/></div>
+      <div class="f"><label>Tinggi Badan (cm)</label><input type="number" placeholder="—" id="tbNow" oninput="hitungBMI()"/></div>
+      <div class="f"><label>IMT / BMI (kg/m²)</label><input type="text" id="bmiOut" placeholder="Otomatis" readonly/></div>
+      <div class="f"><label>Berat Badan Biasanya (kg)</label><input type="number" placeholder="—"/></div>
+      <div class="f"><label>LILA (cm)</label><input type="number" placeholder="Lingkar lengan atas"/></div>
+      <div class="f"><label>Albumin (g/dL)</label><input type="number" placeholder="—" step="0.1"/></div>
+      <div class="f"><label>Hemoglobin (g/dL)</label><input type="number" placeholder="—" step="0.1"/></div>
+      <div class="f"><label>Total Protein (g/dL)</label><input type="number" placeholder="—" step="0.1"/></div>
+      <div class="f"><label>Glukosa Darah (mg/dL)</label><input type="number" placeholder="—"/></div>
+    </div>
+    <div id="bmiKat" style="margin-top:10px;font-size:12px;color:#64748b;"></div>
+  </div>
+
+  <div class="sec">
+    <div class="stitle">🍽️ Status & Rencana Diet</div>
+    <div class="g2">
+      <div class="f"><label>Status Gizi Klinis</label>
+        <div class="rg">
+          <label><input type="radio" name="gizi"/><span>Gizi baik</span></label>
+          <label><input type="radio" name="gizi"/><span>Risiko malnutrisi</span></label>
+          <label><input type="radio" name="gizi"/><span>Malnutrisi ringan–sedang</span></label>
+          <label><input type="radio" name="gizi"/><span>Malnutrisi berat</span></label>
+          <label><input type="radio" name="gizi"/><span>Obesitas</span></label>
+        </div>
+      </div>
+      <div class="f"><label>Jalur Pemberian Nutrisi</label>
+        <div class="rg">
+          <label><input type="radio" name="jalur"/><span>Oral</span></label>
+          <label><input type="radio" name="jalur"/><span>Enteral (NGT)</span></label>
+          <label><input type="radio" name="jalur"/><span>Parenteral</span></label>
+          <label><input type="radio" name="jalur"/><span>Kombinasi</span></label>
+        </div>
+      </div>
+      <div class="f"><label>Jenis Diet</label>
+        <select>
+          <option>-- Pilih diet --</option>
+          <option>Diet biasa</option><option>Diet lunak</option>
+          <option>Diet cair penuh</option><option>Diet cair jernih</option>
+          <option>Diet DM</option><option>Diet rendah garam</option>
+          <option>Diet tinggi protein</option><option>Diet rendah lemak</option>
+          <option>Diet ginjal</option><option>NPE (nutrisi parenteral)</option>
+        </select>
+      </div>
+      <div class="f"><label>Catatan / Konsul Ahli Gizi</label><textarea placeholder="Target kalori, intervensi khusus, jadwal konsultasi gizi..."></textarea></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="stitle">✍️ Tanda Tangan</div>
+    <div class="g2">
+      <div class="f"><label>Perawat yang Melakukan Asesmen</label><input type="text" placeholder="Nama & paraf"/></div>
+      <div class="f"><label>Tanggal & Jam</label><input type="datetime-local"/></div>
+    </div>
+  </div>
+
+  <div class="btn-bar">
+    <button class="btn-secondary" onclick="window.print()">🖨️ Cetak</button>
+    <button class="btn-primary">💾 Simpan ke SIMRS</button>
+  </div>
+</div>
+<script>
+document.querySelectorAll('input[name="n1"]').forEach(r=>r.addEventListener('change',()=>{
+  const q1a=document.getElementById('q1a');
+  q1a.style.opacity=r.value==='yes'?'1':'0.45';
+  q1a.style.pointerEvents=r.value==='yes'?'auto':'none';
+  hitungMST();
+}));
+function hitungMST(){
+  const n1=document.querySelector('input[name="n1"]:checked');
+  const n1a=document.querySelector('input[name="n1a"]:checked');
+  const n2=document.querySelector('input[name="n2"]:checked');
+  let score=0;
+  if(n1){if(n1.value==='unsure')score+=2;else if(n1.value==='yes'&&n1a)score+=parseInt(n1a.value)||0;}
+  if(n2)score+=parseInt(n2.value)||0;
+  document.getElementById('mstScore').textContent=score;
+  const el=document.getElementById('mstResult');
+  el.className='result-box';
+  if(score<2){el.classList.add('result-low');document.getElementById('mstCat').textContent='Risiko Rendah — tidak perlu intervensi gizi khusus saat ini';}
+  else{el.classList.add('result-high');document.getElementById('mstCat').textContent='Risiko Malnutrisi — rujuk ke Ahli Gizi segera';}
+}
+function hitungBMI(){
+  const bb=parseFloat(document.getElementById('bbNow').value);
+  const tb=parseFloat(document.getElementById('tbNow').value);
+  const out=document.getElementById('bmiOut');
+  const kat=document.getElementById('bmiKat');
+  if(bb&&tb&&tb>0){
+    const bmi=bb/((tb/100)**2);
+    out.value=bmi.toFixed(1)+' kg/m²';
+    let k='',c='';
+    if(bmi<17.0){k='Sangat Kurus';c='#A32D2D';}
+    else if(bmi<18.5){k='Kurus';c='#854F0B';}
+    else if(bmi<25.0){k='Normal';c='#27500A';}
+    else if(bmi<27.0){k='Overweight';c='#854F0B';}
+    else{k='Obesitas';c='#A32D2D';}
+    kat.innerHTML=`<span style="color:${c};font-weight:600;">Kategori: ${k}</span>`;
+  } else { out.value=''; kat.innerHTML=''; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SIMRS — Asuhan Keperawatan IGD</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#f0f4f8;color:#1a2332;min-height:100vh;}
+header{background:#0C447C;color:#fff;padding:20px 32px;display:flex;align-items:center;justify-content:space-between;}
+header h1{font-size:18px;font-weight:600;}
+header p{font-size:12px;opacity:.75;margin-top:2px;}
+.badge{background:rgba(255,255,255,.15);font-size:11px;padding:4px 10px;border-radius:20px;}
+.hero{background:#185FA5;color:#fff;padding:40px 32px 48px;text-align:center;}
+.hero h2{font-size:26px;font-weight:600;margin-bottom:8px;}
+.hero p{font-size:14px;opacity:.85;max-width:520px;margin:0 auto;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;padding:32px;max-width:1000px;margin:0 auto;}
+.card{background:#fff;border-radius:14px;border:1px solid #e2e8f0;padding:24px 20px;text-decoration:none;color:#1a2332;transition:all .2s;display:flex;flex-direction:column;gap:10px;}
+.card:hover{border-color:#185FA5;transform:translateY(-2px);}
+.card-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.card h3{font-size:14px;font-weight:600;}
+.card p{font-size:12px;color:#64748b;line-height:1.6;}
+.card .arrow{font-size:18px;color:#185FA5;margin-top:auto;}
+.ic-blue{background:#E6F1FB;color:#0C447C;}
+.ic-red{background:#FCEBEB;color:#A32D2D;}
+.ic-green{background:#EAF3DE;color:#3B6D11;}
+.ic-amber{background:#FAEEDA;color:#854F0B;}
+.ic-teal{background:#E1F5EE;color:#0F6E56;}
+footer{text-align:center;padding:24px;font-size:12px;color:#94a3b8;border-top:1px solid #e2e8f0;background:#fff;}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>🏥 SIMRS Asuhan Keperawatan</h1>
+    <p>Sistem Informasi Manajemen Rumah Sakit — Instalasi Gawat Darurat</p>
+  </div>
+  <span class="badge">IGD</span>
+</header>
+<div class="hero">
+  <h2>Portal Dokumentasi Keperawatan</h2>
+  <p>Pilih formulir asesmen yang dibutuhkan. Semua data tersimpan secara digital dan terstandarisasi.</p>
+</div>
+<div class="grid">
+  <a class="card" href="asesmen-igd.html">
+    <div class="card-icon ic-blue">🩺</div>
+    <h3>Asesmen Awal Keperawatan IGD</h3>
+    <p>Identitas pasien, triage, primary survey ABCD, GCS, tanda vital, pengkajian nyeri & psikososial.</p>
+    <span class="arrow">→</span>
+  </a>
+  <a class="card" href="trauma.html">
+    <div class="card-icon ic-red">🚑</div>
+    <h3>Form Khusus Trauma</h3>
+    <p>Mekanisme cedera, AIS per region, Injury Severity Score (ISS), Revised Trauma Score (RTS) otomatis.</p>
+    <span class="arrow">→</span>
+  </a>
+  <a class="card" href="morse.html">
+    <div class="card-icon ic-amber">⚠️</div>
+    <h3>Asesmen Risiko Jatuh (Morse)</h3>
+    <p>Morse Fall Scale 6 parameter dengan kalkulasi skor otomatis & rekomendasi intervensi pencegahan.</p>
+    <span class="arrow">→</span>
+  </a>
+  <a class="card" href="nutrisi.html">
+    <div class="card-icon ic-green">🥗</div>
+    <h3>Skrining Nutrisi (MST)</h3>
+    <p>Malnutrition Screening Tool, kalkulasi BMI otomatis, status gizi klinis & rencana diet.</p>
+    <span class="arrow">→</span>
+  </a>
+  <a class="card" href="discharge.html">
+    <div class="card-icon ic-teal">🏠</div>
+    <h3>Discharge Planning</h3>
+    <p>Edukasi TEARS, obat pulang, rencana kontrol, rujukan lanjutan & tanda tangan digital.</p>
+    <span class="arrow">→</span>
+  </a>
+</div>
+<footer>SIMRS Asuhan Keperawatan IGD &copy; 2025 — Berbasis Google Sites + GitHub Pages</footer>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Discharge Planning — SIMRS</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div class="top-bar">
+  <a href="index.html">🏥 SIMRS</a>
+  <span class="sep">›</span>
+  <span class="current">Discharge Planning</span>
+</div>
+<div class="form-header">
+  <div><h1>Discharge Planning</h1><p>Perencanaan Pemulangan Pasien & Edukasi TEARS</p></div>
+  <div class="hicon">🏠</div>
+</div>
+<div class="form-body">
+
+  <div class="sec">
+    <div class="stitle">👤 Identitas Pasien</div>
+    <div class="g2">
+      <div class="f"><label>No. Rekam Medis</label><input type="text" placeholder="00123456"/></div>
+      <div class="f"><label>Nama Pasien</label><input type="text" placeholder="Nama lengkap"/></div>
+      <div class="f"><label>Diagnosa Medis</label><input type="text" placeholder="Diagnosa utama saat pulang"/></div>
+      <div class="f"><label>DPJP</label><input type="text" placeholder="Nama dokter penanggung jawab"/></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="stitle">📋 Skrining Kebutuhan Discharge</div>
+    <div class="g2">
+      <div class="f"><label>Perkiraan Tanggal Pulang</label><input type="date"/></div>
+      <div class="f"><label>Kondisi Saat Pulang</label>
+        <div class="rg">
+          <label><input type="radio" name="kond"/><span>Sembuh</span></label>
+          <label><input type="radio" name="kond"/><span>Membaik</span></label>
+          <label><input type="radio" name="kond"/><span>Belum sembuh</span></label>
+          <label><input type="radio" name="kond"/><span>Atas permintaan sendiri</span></label>
+          <label><input type="radio" name="kond"/><span>Dirujuk</span></label>
+          <label><input type="radio" name="kond"/><span>Meninggal</span></label>
+        </div>
+      </div>
+      <div class="f full"><label>Faktor yang Perlu Diperhatikan</label>
+        <div class="rg">
+          <label><input type="checkbox"/><span>Perlu alat bantu mobilisasi</span></label>
+          <label><input type="checkbox"/><span>Perawatan luka di rumah</span></label>
+          <label><input type="checkbox"/><span>Obat-obatan berlanjut</span></label>
+          <label><input type="checkbox"/><span>Keterbatasan mobilitas</span></label>
+          <label><input type="checkbox"/><span>Gangguan kognitif</span></label>
+          <label><input type="checkbox"/><span>Tinggal sendiri</span></label>
+          <label><input type="checkbox"/><span>Perlu perawatan khusus</span></label>
+          <label><input type="checkbox"/><span>Keterbatasan finansial</span></label>
+          <label><input type="checkbox"/><span>Perlu layanan homecare</span></label>
+          <label><input type="checkbox"/><span>Risiko jatuh di rumah</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="stitle">📚 Edukasi Pasien & Keluarga — Metode TEARS</div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div class="dc-check"><input type="checkbox"/><div><strong>T — Treatment (Pengobatan)</strong><br/><span style="color:#64748b;">Jelaskan nama obat, dosis, aturan pakai, & efek samping semua obat yang dibawa pulang</span></div></div>
+      <div class="dc-check"><input type="checkbox"/><div><strong>E — Environment (Lingkungan)</strong><br/><span style="color:#64748b;">Modifikasi lingkungan rumah: pencegahan jatuh, aksesibilitas, kebutuhan alat bantu</span></div></div>
+      <div class="dc-check"><input type="checkbox"/><div><strong>A — Activity (Aktivitas)</strong><br/><span style="color:#64748b;">Batasan aktivitas fisik, latihan yang dibolehkan, pantangan, & kapan boleh bekerja kembali</span></div></div>
+      <div class="dc-check"><input type="checkbox"/><div><strong>R — Referral / Follow-up</strong><br/><span style="color:#64748b;">Jadwal kontrol, poliklinik yang dituju, nomor yang bisa dihubungi jika ada keluhan</span></div></div>
+      <div class="dc-check"><input type="checkbox"/><div><strong>S — Symptoms (Tanda Bahaya)</strong><br/><span style="color:#64748b;">Tanda & gejala yang harus segera membawa pasien kembali ke IGD</span></div></div>
+    </div>
+    <div class="f" style="margin-top:12px;"><label>Catatan Edukasi Tambahan</label><textarea placeholder="Hal spesifik yang perlu ditekankan kepada pasien/keluarga..."></textarea></div>
+  </div>
+
+  <div class="sec">
+    <div class="stitle">💊 Obat Pulang</div>
+    <div id="obatList">
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:8px;margin-bottom:8px;align-items:end;">
+        <div class="f"><label>Nama Obat</label><input type="text" placeholder="Nama generik / paten"/></div>
+        <div class="f"><label>Dosis</label><input type="text" placeholder="500 mg"/></div>
+        <div class="f"><label>Aturan Pakai</label><input type="text" placeholder="3×1"/></div>
+        <div class="f"><label>Durasi</label><input type="text" placeholder="5 hari"/></div>
+      </div>
+    </div>
+    <button class="btn-add" type="button" onclick="tambahObat()">+ Tambah Baris Obat</button>
+  </div>
+
+  <div class="sec">
+    <div class="stitle">📅 Rencana Tindak Lanjut</div>
+    <div class="g2">
+      <div class="f"><label>Tanggal Kontrol</label><input type="date"/></div>
+      <div class="f"><label>Poliklinik Tujuan</label><input type="text" placeholder="Poli jantung, penyakit dalam, bedah..."/></div>
+      <div class="f"><label>Rujukan Lanjutan yang Dibutuhkan</label>
+        <div class="rg">
+          <label><input type="checkbox"/><span>Fisioterapi</span></label>
+          <label><input type="checkbox"/><span>Homecare perawat</span></label>
+          <label><input type="checkbox"/><span>Konseling psikologi</span></label>
+          <label><input type="checkbox"/><span>Ahli gizi / dietisien</span></label>
+          <label><input type="checkbox"/><span>Pekerja sosial medis</span></label>
+          <label><input type="checkbox"/><span>Rehabilitasi medik</span></label>
+        </div>
+      </div>
+      <div class="f"><label>Catatan Discharge Tambahan</label><textarea placeholder="Instruksi khusus, pesan kepada keluarga..."></textarea></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="stitle">✍️ Tanda Tangan & Verifikasi</div>
+    <div class="g3">
+      <div class="f"><label>Perawat yang Mendischarge</label><input type="text" placeholder="Nama & paraf"/><label style="margin-top:8px;">No. STR</label><input type="text" placeholder="—"/></div>
+      <div class="f"><label>Pasien / Keluarga Penerima Edukasi</label><input type="text" placeholder="Nama & hubungan"/><label style="margin-top:8px;">No. Telp</label><input type="text" placeholder="—"/></div>
+      <div class="f"><label>Tanggal & Jam Discharge</label><input type="datetime-local"/></div>
+    </div>
+  </div>
+
+  <div class="btn-bar">
+    <button class="btn-secondary" onclick="window.print()">🖨️ Cetak Surat Discharge</button>
+    <button class="btn-primary">💾 Simpan ke SIMRS</button>
+  </div>
+</div>
+<script>
+function tambahObat(){
+  const list=document.getElementById('obatList');
+  const row=document.createElement('div');
+  row.style.cssText='display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:8px;margin-bottom:8px;align-items:end;';
+  row.innerHTML=`<div class="f"><input type="text" placeholder="Nama generik / paten"/></div><div class="f"><input type="text" placeholder="500 mg"/></div><div class="f"><input type="text" placeholder="3×1"/></div><div class="f"><input type="text" placeholder="5 hari"/></div>`;
+  list.appendChild(row);
+}
+</script>
+</body>
+</html>
