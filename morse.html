@@ -6,6 +6,14 @@
 <title>Asesmen Risiko Jatuh (Morse) — SIMRS</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="style.css"/>
+
+<style>
+.toast{position:fixed;bottom:24px;right:24px;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;z-index:999;display:none;box-shadow:0 4px 12px rgba(0,0,0,.15);}
+.toast.success{background:#EAF3DE;color:#27500A;border:1px solid #86C442;}
+.toast.error{background:#FCEBEB;color:#791F1F;border:1px solid #E24B4A;}
+.toast.loading{background:#E6F1FB;color:#0C447C;border:1px solid #378ADD;}
+.btn-primary:disabled{background:#94a3b8;cursor:not-allowed;}
+</style>
 </head>
 <body>
 <div class="top-bar">
@@ -18,7 +26,6 @@
   <div class="hicon">⚠️</div>
 </div>
 <div class="form-body">
-
   <div class="sec">
     <div class="stitle">👤 Identitas Pasien</div>
     <div class="g2">
@@ -139,7 +146,7 @@
 
   <div class="btn-bar">
     <button class="btn-secondary" onclick="window.print()">🖨️ Cetak</button>
-    <button class="btn-primary">💾 Simpan ke SIMRS</button>
+    <button class="btn-primary" onclick="simpanMorse()">💾 Simpan ke Google Sheets</button>
   </div>
 </div>
 <script>
@@ -159,5 +166,86 @@ function hitungMorse(){
   else{el.classList.add('result-high');document.getElementById('morseCat').textContent='Risiko Tinggi — implementasi pencegahan intensif';}
 }
 </script>
+
+<script>
+function simpanMorse(){
+  const data={
+    formType:'Risiko_Jatuh_Morse',timestamp:new Date().toLocaleString('id-ID'),
+    no_rm:document.querySelector('#no_rm, input[placeholder="00123456"]') ? document.querySelectorAll('input[type=text]')[0].value : '',
+    nama_pasien:document.querySelectorAll('input[type=text]')[1].value,
+    tanggal_asesmen:document.querySelectorAll('input[type=datetime-local]')[0].value,
+    ruangan:document.querySelectorAll('input[type=text]')[3].value,
+    riwayat_jatuh:document.getElementById('m1').options[document.getElementById('m1').selectedIndex].text,
+    diagnosis_sekunder:document.getElementById('m2').options[document.getElementById('m2').selectedIndex].text,
+    alat_bantu:document.getElementById('m3').options[document.getElementById('m3').selectedIndex].text,
+    iv_lock:document.getElementById('m4').options[document.getElementById('m4').selectedIndex].text,
+    gaya_berjalan:document.getElementById('m5').options[document.getElementById('m5').selectedIndex].text,
+    status_mental:document.getElementById('m6').options[document.getElementById('m6').selectedIndex].text,
+    skor_total:document.getElementById('morseScore').textContent,
+    kategori_risiko:document.getElementById('morseCat').textContent,
+    perawat:document.querySelectorAll('input[type=text]')[4] ? document.querySelectorAll('input[type=text]')[4].value : ''
+  };
+  kirimData(data);
+}
+</script>
+<div class="toast" id="toast"></div>
+<script>
+else{tampilToast('⚠️ Masukkan URL terlebih dahulu','error');}}
+function getRadio(name){const el=document.querySelector('input[name="'+name+'"]:checked');return el?el.value:'';}
+function getChecked(name){return Array.from(document.querySelectorAll('input[name="'+name+'"]:checked')).map(e=>e.value).join(', ');}
+function tampilToast(msg,type){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type;t.style.display='block';if(type!=='loading')setTimeout(()=>{t.style.display='none';},4000);}
+async function kirimData(data){
+  const url='https://script.google.com/macros/s/AKfycbx4ADqw9RP6DtWOR4BoEYn_6bsc0FfeF83-kj9C4A546PON9KYZSB3fKB3gAsdXYiJpYQ/exec';
+  if(!url){tampilToast('⚠️ URL Apps Script belum diisi!','error');return;}
+  tampilToast('⏳ Menyimpan data...','loading');
+  document.querySelectorAll('.btn-primary').forEach(b=>b.disabled=true);
+  try{
+    await fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    tampilToast('✅ Data berhasil disimpan ke Google Sheets!','success');
+  }catch(e){tampilToast('❌ Gagal menyimpan. Cek koneksi internet.','error');}
+  document.querySelectorAll('.btn-primary').forEach(b=>b.disabled=false);
+}
+</script>
 </body>
 </html>
+<!-- Already has closing body/html - inject before 
+<script>
+function simpanMorse(){
+  const data={
+    formType:'Risiko_Jatuh_Morse',timestamp:new Date().toLocaleString('id-ID'),
+    no_rm:document.querySelector('#no_rm, input[placeholder="00123456"]') ? document.querySelectorAll('input[type=text]')[0].value : '',
+    nama_pasien:document.querySelectorAll('input[type=text]')[1].value,
+    tanggal_asesmen:document.querySelectorAll('input[type=datetime-local]')[0].value,
+    ruangan:document.querySelectorAll('input[type=text]')[3].value,
+    riwayat_jatuh:document.getElementById('m1').options[document.getElementById('m1').selectedIndex].text,
+    diagnosis_sekunder:document.getElementById('m2').options[document.getElementById('m2').selectedIndex].text,
+    alat_bantu:document.getElementById('m3').options[document.getElementById('m3').selectedIndex].text,
+    iv_lock:document.getElementById('m4').options[document.getElementById('m4').selectedIndex].text,
+    gaya_berjalan:document.getElementById('m5').options[document.getElementById('m5').selectedIndex].text,
+    status_mental:document.getElementById('m6').options[document.getElementById('m6').selectedIndex].text,
+    skor_total:document.getElementById('morseScore').textContent,
+    kategori_risiko:document.getElementById('morseCat').textContent,
+    perawat:document.querySelectorAll('input[type=text]')[4] ? document.querySelectorAll('input[type=text]')[4].value : ''
+  };
+  kirimData(data);
+}
+</script>
+<div class="toast" id="toast"></div>
+<script>
+else{tampilToast('⚠️ Masukkan URL terlebih dahulu','error');}}
+function getRadio(name){const el=document.querySelector('input[name="'+name+'"]:checked');return el?el.value:'';}
+function getChecked(name){return Array.from(document.querySelectorAll('input[name="'+name+'"]:checked')).map(e=>e.value).join(', ');}
+function tampilToast(msg,type){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type;t.style.display='block';if(type!=='loading')setTimeout(()=>{t.style.display='none';},4000);}
+async function kirimData(data){
+  const url='https://script.google.com/macros/s/AKfycbx4ADqw9RP6DtWOR4BoEYn_6bsc0FfeF83-kj9C4A546PON9KYZSB3fKB3gAsdXYiJpYQ/exec';
+  if(!url){tampilToast('⚠️ URL Apps Script belum diisi!','error');return;}
+  tampilToast('⏳ Menyimpan data...','loading');
+  document.querySelectorAll('.btn-primary').forEach(b=>b.disabled=true);
+  try{
+    await fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    tampilToast('✅ Data berhasil disimpan ke Google Sheets!','success');
+  }catch(e){tampilToast('❌ Gagal menyimpan. Cek koneksi internet.','error');}
+  document.querySelectorAll('.btn-primary').forEach(b=>b.disabled=false);
+}
+</script>
+</body> via sed -->

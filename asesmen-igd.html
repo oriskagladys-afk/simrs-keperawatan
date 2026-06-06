@@ -6,233 +6,164 @@
 <title>Asesmen Awal Keperawatan IGD — SIMRS</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="style.css"/>
+<style>
+.toast{position:fixed;bottom:24px;right:24px;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;z-index:999;display:none;box-shadow:0 4px 12px rgba(0,0,0,.15);}
+.toast.success{background:#EAF3DE;color:#27500A;border:1px solid #86C442;}
+.toast.error{background:#FCEBEB;color:#791F1F;border:1px solid #E24B4A;}
+.toast.loading{background:#E6F1FB;color:#0C447C;border:1px solid #378ADD;}
+.btn-primary:disabled{background:#94a3b8;cursor:not-allowed;}
+</style>
 </head>
 <body>
-
 <div class="top-bar">
   <a href="index.html">🏥 SIMRS</a>
   <span class="sep">›</span>
   <span class="current">Asesmen Awal Keperawatan IGD</span>
 </div>
-
 <div class="form-header">
-  <div>
-    <h1>Asesmen Awal Keperawatan Gawat Darurat</h1>
-    <p>Sistem Informasi Manajemen Rumah Sakit — IGD</p>
-  </div>
+  <div><h1>Asesmen Awal Keperawatan Gawat Darurat</h1><p>Sistem Informasi Manajemen Rumah Sakit — IGD</p></div>
   <div class="hicon">🩺</div>
 </div>
-
 <div class="form-body">
-
-  <!-- IDENTITAS -->
   <div class="sec">
     <div class="stitle">👤 Identitas Pasien</div>
     <div class="g2">
-      <div class="f"><label>No. Rekam Medis</label><input type="text" placeholder="Cth: 00123456"/></div>
-      <div class="f"><label>No. Registrasi IGD</label><input type="text" placeholder="Otomatis sistem"/></div>
-      <div class="f"><label>Nama Lengkap Pasien</label><input type="text" placeholder="Sesuai KTP"/></div>
-      <div class="f"><label>Tanggal Lahir</label><input type="date"/></div>
+      <div class="f"><label>No. Rekam Medis</label><input type="text" id="no_rm" placeholder="Cth: 00123456"/></div>
+      <div class="f"><label>No. Registrasi IGD</label><input type="text" id="no_reg" placeholder="Otomatis sistem"/></div>
+      <div class="f"><label>Nama Lengkap Pasien</label><input type="text" id="nama_pasien" placeholder="Sesuai KTP"/></div>
+      <div class="f"><label>Tanggal Lahir</label><input type="date" id="tgl_lahir"/></div>
       <div class="f"><label>Jenis Kelamin</label>
         <div class="rg">
-          <label><input type="radio" name="jk"/><span>Laki-laki</span></label>
-          <label><input type="radio" name="jk"/><span>Perempuan</span></label>
+          <label><input type="radio" name="jk" value="Laki-laki"/><span>Laki-laki</span></label>
+          <label><input type="radio" name="jk" value="Perempuan"/><span>Perempuan</span></label>
         </div>
       </div>
       <div class="f"><label>Cara Datang</label>
         <div class="rg">
-          <label><input type="radio" name="cara"/><span>Sendiri</span></label>
-          <label><input type="radio" name="cara"/><span>Ambulans</span></label>
-          <label><input type="radio" name="cara"/><span>Rujukan</span></label>
-          <label><input type="radio" name="cara"/><span>Diantar keluarga</span></label>
+          <label><input type="radio" name="cara" value="Sendiri"/><span>Sendiri</span></label>
+          <label><input type="radio" name="cara" value="Ambulans"/><span>Ambulans</span></label>
+          <label><input type="radio" name="cara" value="Rujukan"/><span>Rujukan</span></label>
+          <label><input type="radio" name="cara" value="Diantar keluarga"/><span>Diantar keluarga</span></label>
         </div>
       </div>
-      <div class="f"><label>Tanggal & Jam Masuk</label><input type="datetime-local"/></div>
-      <div class="f"><label>Penanggung Jawab / Wali</label><input type="text" placeholder="Nama & hubungan keluarga"/></div>
+      <div class="f"><label>Tanggal &amp; Jam Masuk</label><input type="datetime-local" id="jam_masuk"/></div>
+      <div class="f"><label>Penanggung Jawab / Wali</label><input type="text" id="wali" placeholder="Nama &amp; hubungan keluarga"/></div>
     </div>
   </div>
 
-  <!-- TRIAGE -->
   <div class="sec">
     <div class="stitle">🚨 Klasifikasi Triage</div>
     <div class="g2">
       <div class="f"><label>Kategori Triage</label>
         <div class="rg" style="flex-direction:column;">
-          <label><input type="radio" name="triage"/><span class="triage-badge t1">P1 — Merah (Resusitasi / Segera)</span></label>
-          <label><input type="radio" name="triage"/><span class="triage-badge t2">P2 — Kuning (Urgent / Mendesak)</span></label>
-          <label><input type="radio" name="triage"/><span class="triage-badge t3">P3 — Hijau (Non-Urgent)</span></label>
-          <label><input type="radio" name="triage"/><span class="triage-badge t4">P4 — Hitam (Harapan / Meninggal)</span></label>
+          <label><input type="radio" name="triage" value="P1 - Merah"/><span class="triage-badge t1">P1 — Merah (Resusitasi)</span></label>
+          <label><input type="radio" name="triage" value="P2 - Kuning"/><span class="triage-badge t2">P2 — Kuning (Urgent)</span></label>
+          <label><input type="radio" name="triage" value="P3 - Hijau"/><span class="triage-badge t3">P3 — Hijau (Non-Urgent)</span></label>
+          <label><input type="radio" name="triage" value="P4 - Hitam"/><span class="triage-badge t4">P4 — Hitam (Harapan)</span></label>
         </div>
       </div>
-      <div class="f"><label>Alasan Triage</label><textarea placeholder="Kondisi klinis yang mendasari klasifikasi triage..."></textarea></div>
+      <div class="f"><label>Alasan Triage</label><textarea id="alasan_triage" placeholder="Kondisi klinis yang mendasari..."></textarea></div>
     </div>
   </div>
 
-  <!-- KELUHAN & RIWAYAT -->
   <div class="sec">
-    <div class="stitle">📋 Keluhan Utama & Riwayat Penyakit</div>
+    <div class="stitle">📋 Keluhan Utama &amp; Riwayat Penyakit</div>
     <div class="g2">
-      <div class="f full"><label>Keluhan Utama</label><input type="text" placeholder="Keluhan yang membawa pasien ke IGD"/></div>
-      <div class="f full"><label>Riwayat Penyakit Sekarang (OPQRST)</label><textarea style="min-height:80px;" placeholder="Onset — Provoking — Quality — Region — Severity — Time: ceritakan keluhan secara kronologis..."></textarea></div>
-      <div class="f"><label>Riwayat Penyakit Dahulu</label><textarea placeholder="Hipertensi, DM, jantung, dll."></textarea></div>
-      <div class="f"><label>Riwayat Alergi</label><textarea placeholder="Obat / makanan. Tulis NKDA jika tidak ada."></textarea></div>
-      <div class="f"><label>Obat yang Sedang Dikonsumsi</label><textarea placeholder="Nama obat & dosis"></textarea></div>
-      <div class="f"><label>Riwayat Keluarga</label><textarea placeholder="Penyakit relevan dalam keluarga"></textarea></div>
+      <div class="f full"><label>Keluhan Utama</label><input type="text" id="keluhan_utama" placeholder="Keluhan yang membawa pasien ke IGD"/></div>
+      <div class="f full"><label>Riwayat Penyakit Sekarang (OPQRST)</label><textarea id="rps" style="min-height:80px;" placeholder="Onset — Provoking — Quality — Region — Severity — Time..."></textarea></div>
+      <div class="f"><label>Riwayat Penyakit Dahulu</label><textarea id="rpd" placeholder="Hipertensi, DM, jantung, dll."></textarea></div>
+      <div class="f"><label>Riwayat Alergi</label><textarea id="alergi" placeholder="Obat / makanan. Tulis NKDA jika tidak ada."></textarea></div>
+      <div class="f"><label>Obat yang Sedang Dikonsumsi</label><textarea id="obat_rutin" placeholder="Nama obat &amp; dosis"></textarea></div>
+      <div class="f"><label>Riwayat Keluarga</label><textarea id="riwayat_keluarga" placeholder="Penyakit relevan dalam keluarga"></textarea></div>
     </div>
   </div>
 
-  <!-- TANDA VITAL -->
   <div class="sec">
     <div class="stitle">💓 Tanda-Tanda Vital</div>
     <div class="g4">
       <div class="vital-box">
         <div class="v-label">Tekanan Darah</div>
         <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
-          <input class="v-input" type="text" placeholder="120" style="width:52px;"/>
+          <input class="v-input" type="text" id="td_sistolik" placeholder="120" style="width:52px;"/>
           <span style="font-size:18px;color:#94a3b8;">/</span>
-          <input class="v-input" type="text" placeholder="80" style="width:52px;"/>
+          <input class="v-input" type="text" id="td_diastolik" placeholder="80" style="width:52px;"/>
         </div>
         <div class="v-unit">mmHg</div>
       </div>
-      <div class="vital-box">
-        <div class="v-label">Nadi</div>
-        <input class="v-input" type="text" placeholder="80"/>
-        <div class="v-unit">x/menit</div>
-      </div>
-      <div class="vital-box">
-        <div class="v-label">Respirasi</div>
-        <input class="v-input" type="text" placeholder="20"/>
-        <div class="v-unit">x/menit</div>
-      </div>
-      <div class="vital-box">
-        <div class="v-label">Suhu</div>
-        <input class="v-input" type="text" placeholder="36.5"/>
-        <div class="v-unit">°C</div>
-      </div>
-      <div class="vital-box">
-        <div class="v-label">SpO₂</div>
-        <input class="v-input" type="text" placeholder="99"/>
-        <div class="v-unit">%</div>
-      </div>
-      <div class="vital-box">
-        <div class="v-label">Berat Badan</div>
-        <input class="v-input" type="text" placeholder="60"/>
-        <div class="v-unit">kg</div>
-      </div>
-      <div class="vital-box">
-        <div class="v-label">Tinggi Badan</div>
-        <input class="v-input" type="text" placeholder="165"/>
-        <div class="v-unit">cm</div>
-      </div>
-      <div class="vital-box">
-        <div class="v-label">GDA</div>
-        <input class="v-input" type="text" placeholder="—"/>
-        <div class="v-unit">mg/dL</div>
-      </div>
+      <div class="vital-box"><div class="v-label">Nadi</div><input class="v-input" type="text" id="nadi" placeholder="80"/><div class="v-unit">x/menit</div></div>
+      <div class="vital-box"><div class="v-label">Respirasi</div><input class="v-input" type="text" id="respirasi" placeholder="20"/><div class="v-unit">x/menit</div></div>
+      <div class="vital-box"><div class="v-label">Suhu</div><input class="v-input" type="text" id="suhu" placeholder="36.5"/><div class="v-unit">°C</div></div>
+      <div class="vital-box"><div class="v-label">SpO₂</div><input class="v-input" type="text" id="spo2" placeholder="99"/><div class="v-unit">%</div></div>
+      <div class="vital-box"><div class="v-label">Berat Badan</div><input class="v-input" type="text" id="bb" placeholder="60"/><div class="v-unit">kg</div></div>
+      <div class="vital-box"><div class="v-label">Tinggi Badan</div><input class="v-input" type="text" id="tb" placeholder="165"/><div class="v-unit">cm</div></div>
+      <div class="vital-box"><div class="v-label">GDA</div><input class="v-input" type="text" id="gda" placeholder="—"/><div class="v-unit">mg/dL</div></div>
     </div>
   </div>
 
-  <!-- NYERI -->
   <div class="sec">
     <div class="stitle">😣 Pengkajian Nyeri</div>
     <div class="g2">
       <div class="f">
         <label>Skala Nyeri NRS (0–10)</label>
         <div class="pain-scale" id="painScale"></div>
-        <div style="font-size:11px;color:#94a3b8;margin-top:6px;">0 = tidak nyeri &nbsp;|&nbsp; 1–3 = ringan &nbsp;|&nbsp; 4–6 = sedang &nbsp;|&nbsp; 7–10 = berat</div>
+        <input type="hidden" id="skala_nyeri" value="0"/>
+        <div style="font-size:11px;color:#94a3b8;margin-top:6px;">0=tidak nyeri | 1–3=ringan | 4–6=sedang | 7–10=berat</div>
       </div>
       <div class="f">
-        <label>Lokasi Nyeri</label><input type="text" placeholder="Dada kiri, perut kanan bawah, kepala..."/>
+        <label>Lokasi Nyeri</label><input type="text" id="lokasi_nyeri" placeholder="Dada kiri, perut kanan bawah..."/>
         <label style="margin-top:10px;">Karakter Nyeri</label>
         <div class="rg">
-          <label><input type="radio" name="nyerikar"/><span>Tumpul</span></label>
-          <label><input type="radio" name="nyerikar"/><span>Tajam</span></label>
-          <label><input type="radio" name="nyerikar"/><span>Seperti ditindih</span></label>
-          <label><input type="radio" name="nyerikar"/><span>Menjalar</span></label>
-          <label><input type="radio" name="nyerikar"/><span>Berdenyut</span></label>
+          <label><input type="radio" name="karakter_nyeri" value="Tumpul"/><span>Tumpul</span></label>
+          <label><input type="radio" name="karakter_nyeri" value="Tajam"/><span>Tajam</span></label>
+          <label><input type="radio" name="karakter_nyeri" value="Seperti ditindih"/><span>Seperti ditindih</span></label>
+          <label><input type="radio" name="karakter_nyeri" value="Menjalar"/><span>Menjalar</span></label>
+          <label><input type="radio" name="karakter_nyeri" value="Berdenyut"/><span>Berdenyut</span></label>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- PRIMARY SURVEY -->
   <div class="sec">
     <div class="stitle">🫁 Primary Survey — ABCD</div>
     <div class="g2">
       <div class="f">
         <label>Airway</label>
         <div class="rg">
-          <label><input type="radio" name="aw"/><span>Paten</span></label>
-          <label><input type="radio" name="aw"/><span>Snoring</span></label>
-          <label><input type="radio" name="aw"/><span>Gargling</span></label>
-          <label><input type="radio" name="aw"/><span>Stridor</span></label>
-          <label><input type="radio" name="aw"/><span>Tersumbat</span></label>
+          <label><input type="radio" name="airway" value="Paten"/><span>Paten</span></label>
+          <label><input type="radio" name="airway" value="Snoring"/><span>Snoring</span></label>
+          <label><input type="radio" name="airway" value="Gargling"/><span>Gargling</span></label>
+          <label><input type="radio" name="airway" value="Stridor"/><span>Stridor</span></label>
+          <label><input type="radio" name="airway" value="Tersumbat"/><span>Tersumbat</span></label>
         </div>
-        <textarea style="margin-top:8px;" placeholder="Keterangan airway..."></textarea>
-      </div>
-      <div class="f">
-        <label>Breathing</label>
-        <div class="rg">
-          <label><input type="checkbox"/><span>Spontan</span></label>
-          <label><input type="checkbox"/><span>Reguler</span></label>
-          <label><input type="checkbox"/><span>Retraksi</span></label>
-          <label><input type="checkbox"/><span>Vesikuler</span></label>
-          <label><input type="checkbox"/><span>Wheezing</span></label>
-          <label><input type="checkbox"/><span>Ronkhi</span></label>
-          <label><input type="checkbox"/><span>Bantuan O₂</span></label>
-        </div>
-        <div style="display:flex;gap:8px;margin-top:8px;align-items:center;">
-          <select style="flex:2;font-size:12px;padding:6px 8px;border-radius:8px;border:1px solid #cbd5e1;background:#f8fafc;color:#1a2332;">
-            <option>-- Jenis O₂ --</option>
-            <option>Nasal kanul</option><option>Simple mask</option>
-            <option>NRM</option><option>Ventilator</option>
-          </select>
-          <input type="text" placeholder="LPM" style="flex:1;font-size:12px;padding:6px 8px;border-radius:8px;border:1px solid #cbd5e1;background:#f8fafc;color:#1a2332;outline:none;"/>
-          <span style="font-size:12px;color:#64748b;">L/mnt</span>
-        </div>
-      </div>
-      <div class="f">
-        <label>Circulation</label>
-        <div class="rg">
-          <label><input type="checkbox"/><span>Akral hangat</span></label>
-          <label><input type="checkbox"/><span>Akral dingin</span></label>
-          <label><input type="checkbox"/><span>CRT &lt; 2 dtk</span></label>
-          <label><input type="checkbox"/><span>CRT ≥ 2 dtk</span></label>
-          <label><input type="checkbox"/><span>Nadi teraba</span></label>
-          <label><input type="checkbox"/><span>Pucat</span></label>
-          <label><input type="checkbox"/><span>Sianosis</span></label>
-          <label><input type="checkbox"/><span>Perdarahan</span></label>
-        </div>
-        <textarea style="margin-top:8px;" placeholder="Lokasi & deskripsi perdarahan bila ada..."></textarea>
+        <textarea id="ket_airway" style="margin-top:8px;" placeholder="Keterangan airway..."></textarea>
       </div>
       <div class="f">
         <label>Disability — AVPU</label>
         <div class="rg">
-          <label><input type="radio" name="avpu"/><span>A — Alert</span></label>
-          <label><input type="radio" name="avpu"/><span>V — Voice</span></label>
-          <label><input type="radio" name="avpu"/><span>P — Pain</span></label>
-          <label><input type="radio" name="avpu"/><span>U — Unresponsive</span></label>
+          <label><input type="radio" name="avpu" value="A - Alert"/><span>A — Alert</span></label>
+          <label><input type="radio" name="avpu" value="V - Voice"/><span>V — Voice</span></label>
+          <label><input type="radio" name="avpu" value="P - Pain"/><span>P — Pain</span></label>
+          <label><input type="radio" name="avpu" value="U - Unresponsive"/><span>U — Unresponsive</span></label>
         </div>
         <label style="margin-top:10px;">Pupil</label>
         <div class="rg">
-          <label><input type="radio" name="pupil"/><span>Isokor</span></label>
-          <label><input type="radio" name="pupil"/><span>Anisokor</span></label>
-          <label><input type="radio" name="pupil"/><span>Miosis</span></label>
-          <label><input type="radio" name="pupil"/><span>Midriasis</span></label>
+          <label><input type="radio" name="pupil" value="Isokor"/><span>Isokor</span></label>
+          <label><input type="radio" name="pupil" value="Anisokor"/><span>Anisokor</span></label>
+          <label><input type="radio" name="pupil" value="Miosis"/><span>Miosis</span></label>
+          <label><input type="radio" name="pupil" value="Midriasis"/><span>Midriasis</span></label>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- GCS -->
   <div class="sec">
     <div class="stitle">🧠 Glasgow Coma Scale (GCS)</div>
     <div class="g2">
       <div>
         <div class="gcs-row"><label>Eye (E)</label>
           <select id="gcsE" onchange="hitungGCS()">
-            <option value="4">4 — Spontan</option><option value="3">3 — Terhadap suara</option>
-            <option value="2">2 — Terhadap nyeri</option><option value="1">1 — Tidak ada</option>
+            <option value="4">4 — Spontan</option><option value="3">3 — Suara</option>
+            <option value="2">2 — Nyeri</option><option value="1">1 — Tidak ada</option>
           </select>
         </div>
         <div class="gcs-row"><label>Verbal (V)</label>
@@ -244,8 +175,8 @@
         </div>
         <div class="gcs-row"><label>Motorik (M)</label>
           <select id="gcsM" onchange="hitungGCS()">
-            <option value="6">6 — Sesuai perintah</option><option value="5">5 — Melokalisasi nyeri</option>
-            <option value="4">4 — Menarik dari nyeri</option><option value="3">3 — Fleksi abnormal</option>
+            <option value="6">6 — Sesuai perintah</option><option value="5">5 — Melokalisasi</option>
+            <option value="4">4 — Menarik</option><option value="3">3 — Fleksi abnormal</option>
             <option value="2">2 — Ekstensi abnormal</option><option value="1">1 — Tidak ada</option>
           </select>
         </div>
@@ -260,73 +191,39 @@
     </div>
   </div>
 
-  <!-- SECONDARY SURVEY -->
   <div class="sec">
-    <div class="stitle">🔬 Secondary Survey — Pemeriksaan Fisik</div>
-    <div class="g3">
-      <div class="f"><label>Kepala & Leher</label><textarea placeholder="Trauma, JVP, limfadenopati..."></textarea></div>
-      <div class="f"><label>Thoraks</label><textarea placeholder="Bentuk, gerak napas, suara jantung..."></textarea></div>
-      <div class="f"><label>Abdomen</label><textarea placeholder="Supel/tegang, bising usus, nyeri tekan..."></textarea></div>
-      <div class="f"><label>Ekstremitas</label><textarea placeholder="Deformitas, edema, kekuatan otot..."></textarea></div>
-      <div class="f"><label>Kulit & Integumen</label><textarea placeholder="Warna, turgor, luka, ruam..."></textarea></div>
-      <div class="f"><label>Genitourinaria</label><textarea placeholder="Bila relevan..."></textarea></div>
-    </div>
-  </div>
-
-  <!-- PSIKOSOSIAL -->
-  <div class="sec">
-    <div class="stitle">🫂 Pengkajian Psikososial & Spiritual</div>
+    <div class="stitle">📝 Diagnosa Keperawatan &amp; Tindakan</div>
     <div class="g2">
-      <div class="f"><label>Status Emosional</label>
-        <div class="rg">
-          <label><input type="radio" name="emosi"/><span>Tenang</span></label>
-          <label><input type="radio" name="emosi"/><span>Cemas</span></label>
-          <label><input type="radio" name="emosi"/><span>Takut</span></label>
-          <label><input type="radio" name="emosi"/><span>Marah</span></label>
-          <label><input type="radio" name="emosi"/><span>Sedih</span></label>
-        </div>
-      </div>
-      <div class="f">
-        <label>Agama / Kebutuhan Spiritual</label><input type="text" placeholder="Islam, Kristen, Hindu, Buddha, dst."/>
-        <label style="margin-top:10px;">Bahasa Utama</label><input type="text" placeholder="Indonesia, daerah, dll."/>
-      </div>
-    </div>
-  </div>
-
-  <!-- DIAGNOSA & RENCANA -->
-  <div class="sec">
-    <div class="stitle">📝 Diagnosa Keperawatan & Rencana Tindakan</div>
-    <div class="g2">
-      <div class="f full"><label>Diagnosa Keperawatan (SDKI)</label><textarea style="min-height:70px;" placeholder="Contoh: Pola napas tidak efektif b.d. hambatan upaya napas d.d. penggunaan otot bantu napas, dispnea..."></textarea></div>
-      <div class="f full"><label>Intervensi Keperawatan</label><textarea style="min-height:70px;" placeholder="Pasang IV line, O₂, monitor TTV, posisi semi-Fowler, kolaborasi terapi..."></textarea></div>
-      <div class="f"><label>Respons Pasien</label><textarea placeholder="Sesak berkurang, SpO₂ meningkat..."></textarea></div>
+      <div class="f full"><label>Diagnosa Keperawatan (SDKI)</label><textarea id="diagnosa" style="min-height:70px;" placeholder="Contoh: Pola napas tidak efektif b.d. hambatan upaya napas..."></textarea></div>
+      <div class="f full"><label>Intervensi Keperawatan</label><textarea id="intervensi" style="min-height:70px;" placeholder="Pasang IV line, O₂, monitor TTV..."></textarea></div>
+      <div class="f"><label>Respons Pasien</label><textarea id="respon_pasien" placeholder="Sesak berkurang, SpO₂ meningkat..."></textarea></div>
       <div class="f"><label>Disposisi</label>
         <div class="rg">
-          <label><input type="radio" name="dispo"/><span>Rawat Inap</span></label>
-          <label><input type="radio" name="dispo"/><span>Rawat Jalan</span></label>
-          <label><input type="radio" name="dispo"/><span>Rujuk</span></label>
-          <label><input type="radio" name="dispo"/><span>Pulang atas permintaan</span></label>
-          <label><input type="radio" name="dispo"/><span>Meninggal</span></label>
+          <label><input type="radio" name="disposisi" value="Rawat Inap"/><span>Rawat Inap</span></label>
+          <label><input type="radio" name="disposisi" value="Rawat Jalan"/><span>Rawat Jalan</span></label>
+          <label><input type="radio" name="disposisi" value="Rujuk"/><span>Rujuk</span></label>
+          <label><input type="radio" name="disposisi" value="Pulang atas permintaan"/><span>Pulang atas permintaan</span></label>
+          <label><input type="radio" name="disposisi" value="Meninggal"/><span>Meninggal</span></label>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- TTD -->
   <div class="sec">
-    <div class="stitle">✍️ Verifikasi & Tanda Tangan</div>
+    <div class="stitle">✍️ Verifikasi &amp; Tanda Tangan</div>
     <div class="g2">
-      <div class="f"><label>Perawat Pelaksana</label><input type="text" placeholder="Nama lengkap"/><label style="margin-top:8px;">No. STR</label><input type="text" placeholder="Nomor STR"/></div>
-      <div class="f"><label>Dokter Penanggung Jawab (DPJP)</label><input type="text" placeholder="Nama lengkap"/><label style="margin-top:8px;">No. SIP</label><input type="text" placeholder="Nomor SIP"/></div>
+      <div class="f"><label>Perawat Pelaksana</label><input type="text" id="nama_perawat" placeholder="Nama lengkap"/><label style="margin-top:8px;">No. STR</label><input type="text" id="str_perawat" placeholder="Nomor STR"/></div>
+      <div class="f"><label>Dokter Penanggung Jawab (DPJP)</label><input type="text" id="nama_dokter" placeholder="Nama lengkap"/><label style="margin-top:8px;">No. SIP</label><input type="text" id="sip_dokter" placeholder="Nomor SIP"/></div>
     </div>
   </div>
 
   <div class="btn-bar">
     <button class="btn-secondary" onclick="window.print()">🖨️ Cetak</button>
-    <button class="btn-primary">💾 Simpan ke SIMRS</button>
+    <button class="btn-primary" id="btnSimpan" onclick="simpanData()">💾 Simpan ke Google Sheets</button>
   </div>
-
 </div>
+
+<div class="toast" id="toast"></div>
 
 <script>
 const ps=document.getElementById('painScale');
@@ -336,6 +233,7 @@ for(let i=0;i<=10;i++){
   b.onclick=()=>{
     document.querySelectorAll('.pain-btn').forEach(x=>x.className='pain-btn');
     b.className='pain-btn '+(i===0?'pain-0':i<=3?'pain-mild':i<=6?'pain-mod':'pain-sev');
+    document.getElementById('skala_nyeri').value=i;
   };
   ps.appendChild(b);
 }
@@ -343,6 +241,50 @@ function hitungGCS(){
   const t=+document.getElementById('gcsE').value + +document.getElementById('gcsV').value + +document.getElementById('gcsM').value;
   document.getElementById('gcsTotal').textContent=t;
   document.getElementById('gcsKat').textContent=t>=14?'Kompos Mentis':t>=12?'Apatis':t>=10?'Somnolen':t>=7?'Stupor':'Koma';
+}
+
+else{tampilToast('⚠️ Masukkan URL terlebih dahulu','error');}
+}
+function getRadio(name){const el=document.querySelector('input[name="'+name+'"]:checked');return el?el.value:'';}
+async function simpanData(){
+  const url='https://script.google.com/macros/s/AKfycbx4ADqw9RP6DtWOR4BoEYn_6bsc0FfeF83-kj9C4A546PON9KYZSB3fKB3gAsdXYiJpYQ/exec';
+  if(!url){tampilToast('⚠️ URL Apps Script belum diisi!','error');return;}
+  if(!document.getElementById('no_rm').value.trim()){tampilToast('⚠️ No. Rekam Medis wajib diisi!','error');return;}
+  const gcsT=+document.getElementById('gcsE').value + +document.getElementById('gcsV').value + +document.getElementById('gcsM').value;
+  const data={
+    formType:'Asesmen_IGD',timestamp:new Date().toLocaleString('id-ID'),
+    no_rm:document.getElementById('no_rm').value,no_registrasi:document.getElementById('no_reg').value,
+    nama_pasien:document.getElementById('nama_pasien').value,tgl_lahir:document.getElementById('tgl_lahir').value,
+    jenis_kelamin:getRadio('jk'),cara_datang:getRadio('cara'),jam_masuk:document.getElementById('jam_masuk').value,
+    penanggung_jawab:document.getElementById('wali').value,triage:getRadio('triage'),
+    alasan_triage:document.getElementById('alasan_triage').value,keluhan_utama:document.getElementById('keluhan_utama').value,
+    rps:document.getElementById('rps').value,rpd:document.getElementById('rpd').value,
+    alergi:document.getElementById('alergi').value,obat_rutin:document.getElementById('obat_rutin').value,
+    riwayat_keluarga:document.getElementById('riwayat_keluarga').value,
+    td_sistolik:document.getElementById('td_sistolik').value,td_diastolik:document.getElementById('td_diastolik').value,
+    nadi:document.getElementById('nadi').value,respirasi:document.getElementById('respirasi').value,
+    suhu:document.getElementById('suhu').value,spo2:document.getElementById('spo2').value,
+    bb:document.getElementById('bb').value,tb:document.getElementById('tb').value,gda:document.getElementById('gda').value,
+    skala_nyeri:document.getElementById('skala_nyeri').value,lokasi_nyeri:document.getElementById('lokasi_nyeri').value,
+    karakter_nyeri:getRadio('karakter_nyeri'),airway:getRadio('airway'),
+    ket_airway:document.getElementById('ket_airway').value,avpu:getRadio('avpu'),pupil:getRadio('pupil'),
+    gcs_total:gcsT,gcs_kategori:document.getElementById('gcsKat').textContent,
+    diagnosa:document.getElementById('diagnosa').value,intervensi:document.getElementById('intervensi').value,
+    respon_pasien:document.getElementById('respon_pasien').value,disposisi:getRadio('disposisi'),
+    perawat:document.getElementById('nama_perawat').value,str_perawat:document.getElementById('str_perawat').value,
+    dpjp:document.getElementById('nama_dokter').value,sip_dokter:document.getElementById('sip_dokter').value
+  };
+  tampilToast('⏳ Menyimpan data...','loading');
+  document.getElementById('btnSimpan').disabled=true;
+  try{
+    await fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    tampilToast('✅ Data berhasil disimpan ke Google Sheets!','success');
+  }catch(err){tampilToast('❌ Gagal menyimpan. Cek koneksi internet.','error');}
+  document.getElementById('btnSimpan').disabled=false;
+}
+function tampilToast(msg,type){
+  const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type;t.style.display='block';
+  if(type!=='loading')setTimeout(()=>{t.style.display='none';},4000);
 }
 </script>
 </body>
