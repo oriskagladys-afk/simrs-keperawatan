@@ -243,8 +243,6 @@ function hitungGCS(){
   document.getElementById('gcsKat').textContent=t>=14?'Kompos Mentis':t>=12?'Apatis':t>=10?'Somnolen':t>=7?'Stupor':'Koma';
 }
 
-else{tampilToast('⚠️ Masukkan URL terlebih dahulu','error');}
-}
 function getRadio(name){const el=document.querySelector('input[name="'+name+'"]:checked');return el?el.value:'';}
 async function simpanData(){
   const url='https://script.google.com/macros/s/AKfycbx4ADqw9RP6DtWOR4BoEYn_6bsc0FfeF83-kj9C4A546PON9KYZSB3fKB3gAsdXYiJpYQ/exec';
